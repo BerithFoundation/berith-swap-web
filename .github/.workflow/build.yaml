@@ -1,0 +1,35 @@
+name: Build Berith-swap-web
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-20.04
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build client
+        run: |
+          npm install
+          CI=false npm run build
+
+      - name: deploy build folder
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: ./build
+          target: /home/${{ secrets.USERNAME }}/berith-swap/berith-swap-web
