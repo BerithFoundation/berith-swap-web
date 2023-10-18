@@ -1,0 +1,35 @@
+.Metamask_connection_info {
+  position: absolute;
+  z-index: 2;
+  right: 50px;
+  top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.Metamask_logo {
+  width: 25px;
+  height: 25px;
+}
+
+.Metamask_message {
+  font-weight: 500;
+}
+
+.Metamask_connect_button {
+  color: #333;
+  height: 25px;
+  width: 70px;
+  background-color: #fff;
+  border: none;
+  touch-action: manipulation;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.Metamask_connect_button:hover {
+  color: #5f5f5f;
+}
