@@ -1,6 +1,9 @@
 name: Build Berith-swap-web
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
