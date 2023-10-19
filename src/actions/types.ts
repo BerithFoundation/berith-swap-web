@@ -1,4 +1,4 @@
-import Web3, { Contract, ContractAbi } from "web3";
+import Web3 from "web3";
 
 export type SwapInfo = {
   swapAddress: string;
@@ -47,9 +47,4 @@ export type Network = {
   };
   rpcUrls: string[];
   blockExplorerUrls: string[];
-};
-
-export type BerithSwapContract = {
-  instance: Contract<ContractAbi> | null;
-  address: string;
 };
