@@ -21,7 +21,6 @@ jobs:
 
       - name: Build client
         run: |
-          npm install -g npm@10.2.0
           npm install
           CI=false npm run build
 
