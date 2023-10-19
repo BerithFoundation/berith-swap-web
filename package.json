@@ -1,5 +1,5 @@
 {
-  "name": "berith-swap-web",
+  "name": "npmtest",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,26 +9,32 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.58",
-    "@types/react": "^18.2.27",
-    "@types/react-dom": "^18.2.12",
-    "immer": "^10.0.3",
+    "@types/node": "^16.18.59",
+    "@types/react": "^18.2.29",
+    "@types/react-dom": "^18.2.14",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.3",
-    "react-router-dom": "^6.16.0",
+    "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
-    "web3": "^4.1.2",
-    "web3-eth-contract": "^4.1.0",
-    "web3-utils": "^4.0.6"
+    "web3": "^4.2.0"
   },
   "scripts": {
+    "postinstall": "patch-package",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -43,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/web3": "^1.2.2"
   }
 }

@@ -1,0 +1,40 @@
+diff --git a/node_modules/web3-eth-abi/lib/esm/coders/base/array.js b/node_modules/web3-eth-abi/lib/esm/coders/base/array.js
+index 7596c88..62162ed 100644
+--- a/node_modules/web3-eth-abi/lib/esm/coders/base/array.js
++++ b/node_modules/web3-eth-abi/lib/esm/coders/base/array.js
+@@ -17,7 +17,8 @@ along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
+ import { AbiError } from 'web3-errors';
+ import { uint8ArrayConcat } from 'web3-utils';
+ // eslint-disable-next-line import/no-cycle
+-import { decodeParamFromAbiParameter, encodeNumber, encodeParamFromAbiParameter } from '.';
++import { decodeParamFromAbiParameter, encodeParamFromAbiParameter } from './index.js';
++import {  encodeNumber } from './number.js';
+ import { extractArrayType, isDynamic, WORD_SIZE } from '../utils.js';
+ import { decodeNumber } from './number.js';
+ import { encodeDynamicParams } from './utils.js';
+diff --git a/node_modules/web3-eth-abi/lib/esm/coders/base/tuple.js b/node_modules/web3-eth-abi/lib/esm/coders/base/tuple.js
+index 3ba99a6..32ff0ef 100644
+--- a/node_modules/web3-eth-abi/lib/esm/coders/base/tuple.js
++++ b/node_modules/web3-eth-abi/lib/esm/coders/base/tuple.js
+@@ -17,7 +17,7 @@ along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
+ import { AbiError } from 'web3-errors';
+ import { uint8ArrayConcat } from 'web3-utils';
+ // eslint-disable-next-line import/no-cycle
+-import { decodeParamFromAbiParameter, encodeParamFromAbiParameter } from '.';
++import { decodeParamFromAbiParameter, encodeParamFromAbiParameter } from './index.js';
+ import { encodeDynamicParams } from './utils.js';
+ import { isDynamic } from '../utils.js';
+ import { decodeNumber } from './number.js';
+diff --git a/node_modules/web3-eth-abi/lib/esm/coders/encode.js b/node_modules/web3-eth-abi/lib/esm/coders/encode.js
+index 0b64f67..dbc4585 100644
+--- a/node_modules/web3-eth-abi/lib/esm/coders/encode.js
++++ b/node_modules/web3-eth-abi/lib/esm/coders/encode.js
+@@ -16,7 +16,7 @@ along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ import { AbiError } from 'web3-errors';
+ import { utils } from 'web3-validator';
+-import { encodeTuple } from './base';
++import { encodeTuple } from './base/tuple.js';
+ import { toAbiParams } from './utils.js';
+ export function encodeParameters(abi, params) {
+     if (abi.length !== params.length) {

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/hooks"
 import { setExplorURL, setSwapAddress, setSwapAmount } from "../../../store/SwapInfoStore"
 import ABI from "../../../contract/BerithSwap.json"
 import "./SwapInfoBox.css"
-import Web3, { Contract, ContractAbi } from "web3"
+import Web3 from "web3"
 import { setErrorMessage } from "../../../store/ErrorMessageStore"
 import { ErrorType } from "../../../actions/types"
 import { useEffect, useState } from "react"
@@ -18,6 +18,7 @@ const SwapInfoBox = () =>{
     const swapAddressAction = useAppSelector<string>(state => state.swapInfo.swapAddress)
     const swapAmountAction = useAppSelector<number>(state => state.swapInfo.swapAmount)
     const web3Action = useAppSelector(state => state.walletConn.web3) as Web3
+    const errorAction = useAppSelector<ErrorType>(state => state.errorMessage.type)
     const [contract,setContract] = useState<any>()
     const [addrCheck,setAddrCheck] = useState<boolean>(false)
 
@@ -100,7 +101,6 @@ const SwapInfoBox = () =>{
     }
 
     const checkError = () => {
-        const errorAction = useAppSelector<ErrorType>(state => state.errorMessage.type)
         if (
             errorAction === ErrorType.CannotAddNetwork ||
             errorAction === ErrorType.CannotSwitchNetwork ||
