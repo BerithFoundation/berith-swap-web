@@ -1,0 +1,32 @@
+.explorURL {
+  color: black;
+  font-weight: 500;
+  animation-duration: 1s;
+  animation-name: fadeIn;
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+.explorURL a {
+  font-size: 13px;
+  width: 170px;
+  text-align: center;
+  text-decoration: none;
+  color: #323657;
+}
+
+.explorURL a:hover {
+  text-decoration: underline;
+  background-color: #e9e9f2;
+  border-radius: 5px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

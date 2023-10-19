@@ -3,6 +3,7 @@ import Web3, { Contract, ContractAbi } from "web3";
 export type SwapInfo = {
   swapAddress: string;
   swapAmount: number;
+  explorURL: string;
 };
 
 export type Account = {
@@ -19,7 +20,8 @@ export type WalletConnection = {
 export enum ErrorType {
   NoError,
   NotInstalled,
-  ConnectionFailed,
+  CannotSwitchNetwork,
+  CannotAddNetwork,
   NotConnected,
   InvalidNetwork,
   NoAccounts,

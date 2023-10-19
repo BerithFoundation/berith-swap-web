@@ -4,6 +4,7 @@ import SwapInfoBoxComponent from '../swapInfoBox/SwapInfoBox';
 import "./home.css"
 import WalletConnectButton from '../walletConnectButton/WalletConnectButton';
 import ErrorMessage from '../errorMessage/ErrorMessage';
+import SuccessMessage from '../successMessage/SuccessMessage';
 
 const Home = () => {
 
@@ -16,6 +17,7 @@ const Home = () => {
             </div>
             <SwapInfoBoxComponent />
             <ErrorMessage />
+            <SuccessMessage />
         </div>
     )
 }

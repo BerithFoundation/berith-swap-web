@@ -20,13 +20,17 @@ const errorMessageSlice = createSlice({
           state.type = ErrorType.NotConnected;
           state.message = "Metamask를 연결해 주세요";
           break;
+        case ErrorType.CannotSwitchNetwork:
+          state.type = ErrorType.CannotSwitchNetwork;
+          state.message = "Berith network로 전환에 실패하였습니다.";
+          break;
+        case ErrorType.CannotAddNetwork:
+          state.type = ErrorType.CannotAddNetwork;
+          state.message = "Berith network 추가에 실패하였습니다.";
+          break;
         case ErrorType.InvalidNetwork:
           state.type = ErrorType.InvalidNetwork;
           state.message = "Metamask에서 Berith-chain 네트워크를 선택해 주세요";
-          break;
-        case ErrorType.ConnectionFailed:
-          state.type = ErrorType.ConnectionFailed;
-          state.message = "Berith network 추가에 실패하였습니다.";
           break;
         case ErrorType.NoAccounts:
           state.type = ErrorType.NoAccounts;

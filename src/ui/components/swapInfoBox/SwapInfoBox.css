@@ -37,16 +37,21 @@
   color: #333;
   background-color: #fff;
   border: 1px solid #ccc;
-  touch-action: manipulation;
-  cursor: pointer;
   border-radius: 4px;
 }
 
 .SwapInfo_button:hover {
   color: #333;
+  cursor: pointer;
   background-color: #d4d4d4;
   border-color: #8c8c8c;
-  touch-action: manipulation;
+}
+
+.SwapInfo_button:disabled {
+  color: #333;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ccc;
 }
 
 .SwapInfo_checkbox_wrap {

@@ -4,6 +4,7 @@ import { SwapInfo } from "../actions/types";
 const initialState: SwapInfo = {
   swapAddress: "",
   swapAmount: 0,
+  explorURL: "",
 };
 
 const swapInfoSlice = createSlice({
@@ -16,8 +17,12 @@ const swapInfoSlice = createSlice({
     setSwapAmount: (state, action: PayloadAction<number>) => {
       state.swapAmount = action.payload;
     },
+    setExplorURL: (state, action: PayloadAction<string>) => {
+      state.explorURL = action.payload;
+    },
   },
 });
 
-export const { setSwapAddress, setSwapAmount } = swapInfoSlice.actions;
+export const { setSwapAddress, setSwapAmount, setExplorURL } =
+  swapInfoSlice.actions;
 export default swapInfoSlice.reducer;

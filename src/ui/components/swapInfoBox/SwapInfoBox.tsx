@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks"
-import { setSwapAddress, setSwapAmount } from "../../../store/SwapInfoStore"
+import { setExplorURL, setSwapAddress, setSwapAmount } from "../../../store/SwapInfoStore"
 import ABI from "../../../contract/BerithSwap.json"
 import "./SwapInfoBox.css"
 import Web3, { Contract, ContractAbi } from "web3"
@@ -16,7 +16,7 @@ const SwapInfoBox = () =>{
     const addressAction = useAppSelector<string>(state => state.account.address)
     const balanceAction = useAppSelector<number>(state => state.account.balance)
     const swapAddressAction = useAppSelector<string>(state => state.swapInfo.swapAddress)
-    const swapAmountAction = useAppSelector<number>(state => state.swapInfo.swapAmount as number)
+    const swapAmountAction = useAppSelector<number>(state => state.swapInfo.swapAmount)
     const web3Action = useAppSelector(state => state.walletConn.web3) as Web3
     const [contract,setContract] = useState<any>()
     const [addrCheck,setAddrCheck] = useState<boolean>(false)
@@ -37,6 +37,8 @@ const SwapInfoBox = () =>{
     }
     
     const handleDeposit = async () => {
+        dispatch(setExplorURL(``))
+
         if (!web3Action){
             dispatch(setErrorMessage(ErrorType.NotConnected))    
             return
@@ -49,7 +51,7 @@ const SwapInfoBox = () =>{
             dispatch(setErrorMessage(ErrorType.InvalidAddress))
             return
         }
-        const gasLimit = 3000000
+        const gasLimit = 50000
 
         try {
             const gasPrice = await web3Action.eth.getGasPrice()
@@ -66,12 +68,14 @@ const SwapInfoBox = () =>{
             })
 
             const balance = await web3Action.eth.getBalance(addressAction) as BigInt
-            if (Number(balance) === 0){
-                dispatch(setErrorMessage(ErrorType.ZeroBalance))
-            }
             dispatch(setBalance(Number(balance)/1e18))
             dispatch(setSwapAmount(Number(balance)/1e18))
-
+            if (Number(balance) === 0){
+                dispatch(setErrorMessage(ErrorType.ZeroBalance))
+            }else{
+                dispatch(setErrorMessage(ErrorType.NoError))
+            }
+            dispatch(setExplorURL(`https://baobab.scope.klaytn.com/account/${swapAddressAction}?tabId=tokenTransfer`))
         }catch(error){
             dispatch(setErrorMessage(ErrorType.DepositFailed))
             console.error(error)
@@ -95,15 +99,29 @@ const SwapInfoBox = () =>{
         }
     }
 
+    const checkError = () => {
+        const errorAction = useAppSelector<ErrorType>(state => state.errorMessage.type)
+        if (
+            errorAction === ErrorType.CannotAddNetwork ||
+            errorAction === ErrorType.CannotSwitchNetwork ||
+            errorAction === ErrorType.InvalidNetwork ||
+            errorAction === ErrorType.NoAccounts ||
+            errorAction === ErrorType.NotConnected ||
+            errorAction === ErrorType.NotInstalled
+           ) {return true}
+
+        return false
+    }
+
     return (
         <div className="SwapInfo_wrap">
             <div className="SwapInfo_input_wrap">
-                <input className="SwapInfo_input_address SwapInfo_input_box" placeholder={addrCheck?"송금할 주소를 입력해 주세요.":"Metamask를 연결해 주세요."}value={swapAddressAction}  type="text" onChange={handleChangeAddress} disabled={!addrCheck}/>
-                <input className="SwapInfo_input_amount SwapInfo_input_box" value={swapAmountAction} type="number" onChange={handleChangeAmount}/>
-                <button className="SwapInfo_button" onClick={handleDeposit}>송금하기</button>
+                <input className="SwapInfo_input_address SwapInfo_input_box" placeholder={addrCheck?"송금할 주소를 입력해 주세요.":"Metamask를 연결해 주세요."} value={swapAddressAction}  type="text" onChange={handleChangeAddress} disabled={!addrCheck}/>
+                <input className="SwapInfo_input_amount SwapInfo_input_box" value={swapAmountAction} type="number" onChange={handleChangeAmount} disabled={checkError()}/>
+                <button className="SwapInfo_button" onClick={handleDeposit} disabled={checkError()}>송금하기</button>
             </div>
             <div className="SwapInfo_checkbox_wrap">
-                <input type="checkbox" id="addrCheck" onChange={handleAddrCheck}/ >
+                <input type="checkbox" id="addrCheck" onChange={handleAddrCheck} disabled={checkError()}/ >
                 <label htmlFor="addrCheck">다른 주소로 송금하기</label>
             </div>
         </div>
