@@ -117,9 +117,9 @@ const SwapInfoBox = () =>{
     return (
         <div className="SwapInfo_wrap">
             <div className="SwapInfo_input_wrap">
-                <input className="SwapInfo_input_address SwapInfo_input_box" placeholder={addrCheck?"송금할 주소를 입력해 주세요.":"Metamask를 연결해 주세요."} value={swapAddressAction}  type="text" onChange={handleChangeAddress} disabled={!addrCheck}/>
+                <input className="SwapInfo_input_address SwapInfo_input_box" placeholder={addrCheck?langAction?"Please enter the address where the token should be sent.":"토큰을 전송받을 주소를 입력해 주세요.":langAction?"Please connect the Metamask.":"Metamask를 연결해 주세요."} value={swapAddressAction}  type="text" onChange={handleChangeAddress} disabled={!addrCheck}/>
                 <input className="SwapInfo_input_amount SwapInfo_input_box" value={swapAmountAction} type="number" onChange={handleChangeAmount} disabled={checkError()}/>
-                <button className="SwapInfo_button" onClick={handleDeposit} disabled={checkError()}>송금하기</button>
+                <button className="SwapInfo_button" onClick={handleDeposit} disabled={checkError()}>{langAction?"Deposit":"송금하기"}</button>
             </div>
             <div className="SwapInfo_checkbox_wrap">
                 <input type="checkbox" id="addrCheck" onChange={handleAddrCheck} disabled={checkError()}/ >

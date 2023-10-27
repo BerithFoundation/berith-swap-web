@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import "./Header.css"
 import { setIsEng } from "../../../store/LanguageStore";
