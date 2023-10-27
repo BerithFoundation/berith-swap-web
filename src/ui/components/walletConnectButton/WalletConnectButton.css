@@ -1,13 +1,13 @@
 .Metamask_connection_info {
   position: absolute;
   z-index: 2;
-  right: 50px;
-  top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 5px;
+  top: 100px;
+  right: 70px;
 }
 
 .Metamask_logo {

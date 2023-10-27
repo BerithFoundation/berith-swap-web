@@ -27,6 +27,7 @@ const WalletConnectButton = () => {
     const web3Action = useAppSelector(state => state.walletConn.web3)
     const walletConnAction = useAppSelector(state => state.walletConn.isWalletConnected)
     const balanceAction = useAppSelector(state => state.account.balance)
+    const langAction = useAppSelector<boolean>(state => state.language.isEng)
 
     const dispatch = useAppDispatch();
 
@@ -45,11 +46,11 @@ const WalletConnectButton = () => {
                     });
                     dispatch(setChainId(berithMainnetChainId.toString()))
                 }catch (addError: any){
-                    dispatch(setErrorMessage(ErrorType.CannotAddNetwork))
+                    dispatch(setErrorMessage({err:ErrorType.CannotAddNetwork,isEng:langAction}))
                     console.error(addError)
                 }
             }else{
-                dispatch(setErrorMessage(ErrorType.CannotSwitchNetwork))
+                dispatch(setErrorMessage({err:ErrorType.CannotSwitchNetwork,isEng:langAction}))
                 console.error(switchError)
             }
         }
@@ -57,7 +58,7 @@ const WalletConnectButton = () => {
 
     const getChainId = async () => {
         if (!web3Action || !walletConnAction){
-            dispatch(setErrorMessage(ErrorType.NotConnected))
+            dispatch(setErrorMessage({err:ErrorType.NotConnected,isEng:langAction}))
             return
         }
 
@@ -70,7 +71,7 @@ const WalletConnectButton = () => {
                 await getAccountInfo();
             }
         }catch{
-            dispatch(setErrorMessage(ErrorType.InvalidNetwork))
+            dispatch(setErrorMessage({err:ErrorType.InvalidNetwork,isEng:langAction}))
         }
 
 
@@ -79,33 +80,33 @@ const WalletConnectButton = () => {
     const getAccountInfo = async () => {
         if (!window.ethereum) {
             dispatch(setWalletConn(false))
-            dispatch(setErrorMessage(ErrorType.NotInstalled))
+            dispatch(setErrorMessage({err:ErrorType.NotInstalled,isEng:langAction}))
             throw new Error("Wallet is not installed");
         }
         try {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' }) as string[];
             if (!accounts || !Array.isArray(accounts)){
-                dispatch(setErrorMessage(ErrorType.NoAccounts))
+                dispatch(setErrorMessage({err:ErrorType.NoAccounts,isEng:langAction}))
             }
             dispatch(setAddress(accounts[0]))
             dispatch(setSwapAddress(accounts[0]))
 
             const balance = await window.ethereum.request({ method: 'eth_getBalance', params: [accounts[0]] }) as BigInt
             if (Number(balance) === 0){
-                dispatch(setErrorMessage(ErrorType.ZeroBalance))
+                dispatch(setErrorMessage({err:ErrorType.ZeroBalance,isEng:langAction}))
             }
             dispatch(setBalance(Number(balance)/1e18))
             dispatch(setSwapAmount(Number(balance)/1e18))
-            dispatch(setErrorMessage(ErrorType.NoError))
+            dispatch(setErrorMessage({err:ErrorType.NoError,isEng:langAction}))
         }catch{
-            dispatch(setErrorMessage(ErrorType.NoAccounts))
+            dispatch(setErrorMessage({err:ErrorType.NoAccounts,isEng:langAction}))
         }
     }
 
     const connectToWallet = async () => {
         if (!window.ethereum) {
             dispatch(setWalletConn(false))
-            dispatch(setErrorMessage(ErrorType.NotInstalled))
+            dispatch(setErrorMessage({err:ErrorType.NotInstalled,isEng:langAction}))
             throw new Error("Wallet is not installed");
         }
 
@@ -115,7 +116,7 @@ const WalletConnectButton = () => {
             console.log("chainChanged",chainId)
             await getAccountInfo();
             if (chainId !== '0x6a') {
-                dispatch(setErrorMessage(ErrorType.InvalidNetwork))
+                dispatch(setErrorMessage({err:ErrorType.InvalidNetwork,isEng:langAction}))
             }
         });
 
@@ -126,7 +127,7 @@ const WalletConnectButton = () => {
         const newWeb3 = new Web3(provider) as Web3
         dispatch(setWeb3(newWeb3))
         dispatch(setWalletConn(true))
-        dispatch(setErrorMessage(ErrorType.NoError))
+        dispatch(setErrorMessage({err:ErrorType.NoError,isEng:langAction}))
     }
 
     useEffect(()=>{
@@ -139,7 +140,7 @@ const WalletConnectButton = () => {
             {
                 walletConnAction?
                 <p className='Metamask_message' style={{color:"#34C724"}}>{balanceAction} BERS</p>:
-                <button className='Metamask_connect_button' onClick={connectToWallet}>연결하기</button>
+                <button className='Metamask_connect_button' onClick={connectToWallet}>{langAction?"Connect":"연결하기"}</button>
             }
         </div>
     )

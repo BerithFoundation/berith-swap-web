@@ -3,6 +3,7 @@ import swapInfoReducer from "./SwapInfoStore";
 import walletConnReducer from "./WalletConnStore";
 import errorMeesageReducer from "./ErrorMessageStore";
 import AccountReducer from "./AccountStore";
+import LangReducer from "./LanguageStore";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     walletConn: walletConnReducer,
     errorMessage: errorMeesageReducer,
     account: AccountReducer,
+    language: LangReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

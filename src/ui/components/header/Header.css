@@ -1,0 +1,21 @@
+.Header_wrap {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.Header_logo {
+  width: 126px;
+  height: 30px;
+  position: relative;
+  margin-left: 50px;
+}
+
+.Header_select {
+  width: 70px;
+  margin-right: 50px;
+}

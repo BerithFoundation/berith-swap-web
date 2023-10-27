@@ -8,7 +8,7 @@ import { ErrorType } from "../../../actions/types"
 import { useEffect, useState } from "react"
 import { setBalance } from "../../../store/AccountStore"
 
-const addressRegex = /(\b0x[a-f0-9]{40}\b)/g
+const addressRegex = /(\b0x[a-fA-F0-9]{40}\b)/g
 const amountRegex = /^\d+(\.\d{1,18})?$/g
 
 
@@ -19,6 +19,7 @@ const SwapInfoBox = () =>{
     const swapAmountAction = useAppSelector<number>(state => state.swapInfo.swapAmount)
     const web3Action = useAppSelector(state => state.walletConn.web3) as Web3
     const errorAction = useAppSelector<ErrorType>(state => state.errorMessage.type)
+    const langAction = useAppSelector<boolean>(state => state.language.isEng)
     const [contract,setContract] = useState<any>()
     const [addrCheck,setAddrCheck] = useState<boolean>(false)
 
@@ -33,7 +34,7 @@ const SwapInfoBox = () =>{
         const numAmt = Number(e.target.value)
         dispatch(setSwapAmount(numAmt));
         if  (numAmt > balanceAction){
-            dispatch(setErrorMessage(ErrorType.InsufficientBalance))
+            dispatch(setErrorMessage({err:ErrorType.InsufficientBalance,isEng:langAction}))
         }
     }
     
@@ -41,15 +42,15 @@ const SwapInfoBox = () =>{
         dispatch(setExplorURL(``))
 
         if (!web3Action){
-            dispatch(setErrorMessage(ErrorType.NotConnected))    
+            dispatch(setErrorMessage({err:ErrorType.NotConnected,isEng:langAction}))    
             return
         }
         if (!String(swapAmountAction).match(amountRegex)){
-            dispatch(setErrorMessage(ErrorType.InvalidAmount))    
+            dispatch(setErrorMessage({err:ErrorType.InvalidAmount,isEng:langAction}))    
             return
         }
         if (!swapAddressAction.match(addressRegex)){
-            dispatch(setErrorMessage(ErrorType.InvalidAddress))
+            dispatch(setErrorMessage({err:ErrorType.InvalidAddress,isEng:langAction}))
             return
         }
         const gasLimit = 50000
@@ -72,17 +73,17 @@ const SwapInfoBox = () =>{
             dispatch(setBalance(Number(balance)/1e18))
             dispatch(setSwapAmount(Number(balance)/1e18))
             if (Number(balance) === 0){
-                dispatch(setErrorMessage(ErrorType.ZeroBalance))
+                dispatch(setErrorMessage({err:ErrorType.ZeroBalance,isEng:langAction}))
             }else{
-                dispatch(setErrorMessage(ErrorType.NoError))
+                dispatch(setErrorMessage({err:ErrorType.NoError,isEng:langAction}))
             }
             dispatch(setExplorURL(`https://baobab.scope.klaytn.com/account/${swapAddressAction}?tabId=tokenTransfer`))
         }catch(error){
-            dispatch(setErrorMessage(ErrorType.DepositFailed))
+            dispatch(setErrorMessage({err:ErrorType.DepositFailed,isEng:langAction}))
             console.error(error)
             return
         }
-        dispatch(setErrorMessage(ErrorType.NoError))
+        dispatch(setErrorMessage({err:ErrorType.NoError,isEng:langAction}))
     }
 
     useEffect(()=>{
@@ -122,7 +123,7 @@ const SwapInfoBox = () =>{
             </div>
             <div className="SwapInfo_checkbox_wrap">
                 <input type="checkbox" id="addrCheck" onChange={handleAddrCheck} disabled={checkError()}/ >
-                <label htmlFor="addrCheck">다른 주소로 송금하기</label>
+                <label htmlFor="addrCheck">{langAction?"Receive at another address":"다른 주소로 송금하기"}</label>
             </div>
         </div>
     )

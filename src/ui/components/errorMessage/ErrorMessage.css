@@ -1,4 +1,6 @@
 .errorMessage {
+  width: 100%;
+  text-align: center;
   font-size: 12px;
   font-weight: 500;
   color: #ed4337;

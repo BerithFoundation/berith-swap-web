@@ -1,10 +1,13 @@
 .explorURL {
+  width: 100%;
   color: black;
   font-weight: 500;
   animation-duration: 2s;
   animation-name: fadeIn;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   column-gap: 10px;
 }
 

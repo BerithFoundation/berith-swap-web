@@ -1,6 +1,15 @@
 .Home_wrap {
-  width: 80%;
+  width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  row-gap: 80px;
+}
+
+.Home_main {
+  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,5 +37,22 @@
 .Home_berith_logo {
   width: 60px;
   height: 15px;
-  margin-bottom: 15px;
+}
+
+.Home_info {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  row-gap: 5px;
+  margin-bottom: 70px;
+}
+
+.Home_info h3 {
+  margin-bottom: 10px;
+}
+
+.Home_info p {
+  padding-left: 20px;
 }
