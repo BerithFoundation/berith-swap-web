@@ -88,7 +88,7 @@ const SwapInfoBox = () =>{
 
     useEffect(()=>{
         if (web3Action){
-            setContract(new web3Action.eth.Contract(ABI.abi,"0x604787429eABcE974BFC8A6075ad6B1a2DC54b4c"))
+            setContract(new web3Action.eth.Contract(ABI.abi,"0xf584a6981552E14a4bB08397269c3ed959Dc8d4E"))
         }
     },[web3Action])
 
