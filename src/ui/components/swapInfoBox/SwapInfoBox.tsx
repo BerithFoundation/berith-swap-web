@@ -77,7 +77,7 @@ const SwapInfoBox = () =>{
             }else{
                 dispatch(setErrorMessage({err:ErrorType.NoError,isEng:langAction}))
             }
-            dispatch(setExplorURL(`https://baobab.scope.klaytn.com/account/${swapAddressAction}?tabId=tokenTransfer`))
+            dispatch(setExplorURL(`https://klaytnscope.com/account/${swapAddressAction}?tabId=tokenTransfer`))
         }catch(error){
             dispatch(setErrorMessage({err:ErrorType.DepositFailed,isEng:langAction}))
             console.error(error)
